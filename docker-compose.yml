@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  nginx:
+    build: ./nginx
+    links:
+      - auth
+      - static
+    ports:
+      - "80:80"
+  static:
+    image: jojomi/nginx-static
+    volumes:
+     -  ./static:/var/www
+  auth:
+    build: ./auth
+networks:
+  default:
+    external:
+      name: services
